@@ -17,6 +17,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JPanel;
 import devpos.models.Kategori;
+import java.awt.Font;
 import javax.swing.JOptionPane;
 /**
  *
@@ -27,18 +28,29 @@ public class Menu extends javax.swing.JFrame {
     /**
      * Creates new form Menu
      */
-    static final String DB_URL = "jdbc:mysql://localhost/pos_netbeans";
+   static final String DB_URL = "jdbc:mysql://localhost/pos_netbeans";
    static final String USER = "root";
    static final String PASS = "";
    static final String QUERY = "SELECT id, name FROM kategori";
    static String globalId = "";
     public Menu() {
-        
+        setUndecorated(true);
         initComponents();
-        getData();
         
+        tableKategori.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 18));
+        tableKategori.getTableHeader().setOpaque(false);
+        tableKategori.getTableHeader().setBackground(new Color(37,40,54));
+        tableKategori.getTableHeader().setForeground(new Color(255,255,255));
+        tableKategori.getTableHeader().setReorderingAllowed(false);
+        tableKategori.setRowHeight(40);
+    
+        tableKategori.setFont(new Font("Segoe UI", Font.BOLD, 18));
+        tableKategori.setForeground(new Color(255,255,255));
+        tableKategori.setBackground(new Color(37,40,54));
+        tableKategori.setGridColor(new java.awt.Color(37,40,54));
         ubah.setVisible(false);
         hapus.setVisible(false);
+        getData();
     }
 
     /**
@@ -258,8 +270,8 @@ public class Menu extends javax.swing.JFrame {
                                 .addComponent(hapus, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel6Layout.createSequentialGroup()
                                 .addComponent(jLabel8)
-                                .addGap(8, 8, 8)
-                                .addComponent(inputName, javax.swing.GroupLayout.DEFAULT_SIZE, 454, Short.MAX_VALUE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                                .addComponent(inputName, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(19, 19, 19))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addComponent(jLabel11)
@@ -356,7 +368,7 @@ public class Menu extends javax.swing.JFrame {
 
     private void productMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productMenuMouseClicked
         // TODO add your handling code here:
-        new Menu().setVisible(false);
+        dispose();
         new Product().setVisible(true);
     }//GEN-LAST:event_productMenuMouseClicked
 
@@ -367,7 +379,7 @@ public class Menu extends javax.swing.JFrame {
 
     private void transaksiMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_transaksiMenuMouseClicked
         // TODO add your handling code here:
-        kategori.setVisible(false);
+        
     }//GEN-LAST:event_transaksiMenuMouseClicked
 
     private void simpanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_simpanMouseClicked
@@ -378,7 +390,7 @@ public class Menu extends javax.swing.JFrame {
         if(dataName.equals("")){
             JOptionPane.showMessageDialog(null, "Data Masih Kosong !");
         }else{
-            int g = JOptionPane.showConfirmDialog(null, "Apakah Anda Ingin Mengubahnya ?", "Ubah?", JOptionPane.YES_NO_OPTION);
+            int g = JOptionPane.showConfirmDialog(null, "Apakah Anda Ingin Menambah ?", "Tambah?", JOptionPane.YES_NO_OPTION);
             if(g == 0){
                 String Info = Kategori.create(dataName);
                 JOptionPane.showMessageDialog(null, Info);
@@ -406,6 +418,7 @@ public class Menu extends javax.swing.JFrame {
             ubah.setVisible(false);
             hapus.setVisible(false);
         }
+        inputName.setText("");
         
     }//GEN-LAST:event_hapusMouseClicked
 

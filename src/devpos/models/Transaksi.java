@@ -16,19 +16,21 @@ import java.util.Arrays;
  *
  * @author Gunawan Bayu
  */
-public class Kategori {
+public class Transaksi {
         static final String DB_URL = "jdbc:mysql://localhost/pos_netbeans";
    static final String USER = "root";
    static final String PASS = "";
    static final String QUERY = "SELECT id, name FROM kategori";
-    public static void main(String[] args) {
+    public static void main(String[] args) 
+    { String[][] listDataDetailPenjualan = listDataDetailPenjualan();
+        System.out.println(Arrays.deepToString(listDataDetailPenjualan));
     }
-    public static String[][] listData()
+    public static String[][] listDataDetailPenjualan()
     {
         
         int i=0;
         int j=0;
-        
+        String QUERY = "SELECT id, name,harga,qty FROM detail_penjualan where id_transaksi is null";
         try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
          Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
          ResultSet rs = stmt.executeQuery(QUERY);
@@ -42,10 +44,10 @@ public class Kategori {
  
             
          while(rs.next()){
-            //Display values
-            System.out.print(", name: " + columnS);
             returnData[i][0] = rs.getString("id");
             returnData[i][1] = rs.getString("name");
+            returnData[i][2] = rs.getString("harga");
+            returnData[i][3] = rs.getString("qty");
             i++;
             
         }
