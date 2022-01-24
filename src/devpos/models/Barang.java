@@ -21,9 +21,9 @@ import java.util.Arrays;
  */
 public class Barang {
     //connection
-    public static final String DB_URL = "jdbc:mysql://localhost/pos_netbeans";
-    public static final String USER ="root";
-    public static final String PASSWORD="";
+    private static String DB_URL = "jdbc:mysql://localhost/pos_netbeans";
+    private static String USER ="root";
+    private static String PASSWORD="";
     
     public static void main(String[] args){
         String[][] showData = listData();

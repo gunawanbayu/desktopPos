@@ -6,6 +6,7 @@
 package devpos.Barang;
 
 import devpos.Kategori.*;
+import devpos.Transaksi.TransaksiView;
 import devpos.models.Barang;
 import devpos.models.Kategori;
 import java.awt.Color;
@@ -47,6 +48,7 @@ public class BarangView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel6 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -59,6 +61,13 @@ public class BarangView extends javax.swing.JFrame {
         setUndecorated(true);
         setSize(new java.awt.Dimension(1000, 600));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel6MouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 290, 40));
 
         jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -150,6 +159,12 @@ public class BarangView extends javax.swing.JFrame {
         new KategoriView().setVisible(true);
         dispose();
     }//GEN-LAST:event_jLabel5MouseClicked
+
+    private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
+        // TODO add your handling code here:
+        new TransaksiView().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jLabel6MouseClicked
     
     /**
      * @param args the command line arguments
@@ -234,6 +249,7 @@ public class BarangView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     public static javax.swing.JTable tableKategori;
     // End of variables declaration//GEN-END:variables

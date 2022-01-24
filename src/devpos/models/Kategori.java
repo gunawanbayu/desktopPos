@@ -17,10 +17,10 @@ import java.util.Arrays;
  * @author Gunawan Bayu
  */
 public class Kategori {
-        static final String DB_URL = "jdbc:mysql://localhost/pos_netbeans";
-   static final String USER = "root";
-   static final String PASS = "";
-   static final String QUERY = "SELECT id, name FROM kategori";
+    private static String DB_URL = "jdbc:mysql://localhost/pos_netbeans";
+    private static String USER = "root";
+    private static String PASS = "";
+    
     public static void main(String[] args) {
     }
     public static String[][] listData()
@@ -28,7 +28,7 @@ public class Kategori {
         
         int i=0;
         int j=0;
-        
+        String QUERY = "SELECT id, name FROM kategori";
         try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
          Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
          ResultSet rs = stmt.executeQuery(QUERY);

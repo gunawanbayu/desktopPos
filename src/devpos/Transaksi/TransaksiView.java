@@ -25,6 +25,7 @@ public class TransaksiView extends javax.swing.JFrame {
     public static String inputNameEdit;
     public static String inputHargaEdit;
     public static String inputKodeKategoriEdit;
+    
     /**
      * Creates new form tabel
      */
@@ -38,6 +39,7 @@ public class TransaksiView extends javax.swing.JFrame {
         tableKategori.getTableHeader().setForeground(new Color(255,255,255));
         tableKategori.setRowHeight(25);
         getData();
+        getDataDetailPenjualan();
        
     }
 
@@ -50,8 +52,11 @@ public class TransaksiView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextField1 = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        simpan = new javax.swing.JLabel();
+        kembalianInput = new javax.swing.JTextField();
+        kembalianLabel = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -70,24 +75,55 @@ public class TransaksiView extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(1000, 600));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel10MouseClicked(evt);
             }
         });
-        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 500, 150, 40));
+        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 290, 30));
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel8.setText("Rp.5000");
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 580, -1, -1));
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/devpos/Kategori/ImageAssets/lihatTransaksi.png"))); // NOI18N
+        jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel8MouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 190, -1, -1));
+
+        simpan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/devpos/Kategori/ImageAssets/ButtonSimpan.png"))); // NOI18N
+        simpan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                simpanMouseClicked(evt);
+            }
+        });
+        getContentPane().add(simpan, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 630, -1, -1));
+
+        kembalianInput.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        kembalianInput.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                kembalianInputActionPerformed(evt);
+            }
+        });
+        kembalianInput.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                kembalianInputKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                kembalianInputKeyReleased(evt);
+            }
+        });
+        getContentPane().add(kembalianInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 500, 150, 40));
+
+        kembalianLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        kembalianLabel.setText("0");
+        getContentPane().add(kembalianLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 580, -1, -1));
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel9.setText("Kembalian");
         getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 550, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel7.setText("Rp.5000");
+        jLabel7.setText("0");
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 530, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -128,9 +164,10 @@ public class TransaksiView extends javax.swing.JFrame {
             }
         ));
         tableKategori.setFocusable(false);
+        tableKategori.setGridColor(new java.awt.Color(0, 153, 255));
         tableKategori.setIntercellSpacing(new java.awt.Dimension(0, 0));
         tableKategori.setRowHeight(25);
-        tableKategori.setSelectionBackground(new java.awt.Color(232, 57, 95));
+        tableKategori.setSelectionBackground(new java.awt.Color(0, 102, 255));
         tableKategori.setShowVerticalLines(false);
         tableKategori.getTableHeader().setReorderingAllowed(false);
         tableKategori.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -184,22 +221,11 @@ public class TransaksiView extends javax.swing.JFrame {
     private void tableKategoriMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableKategoriMouseClicked
         // TODO add your handling code here:
         int baris = tableKategori.getSelectedRow();
-        globalId = tableKategori.getValueAt(baris, 0).toString();
-        inputNameEdit = tableKategori.getValueAt(baris, 1).toString();
-        inputHargaEdit = tableKategori.getValueAt(baris, 2).toString();
-        inputKodeKategoriEdit = tableKategori.getValueAt(baris, 3).toString();
-        String[][] listData = Transaksi.listDataDetailPenjualan();
-        String[][]   listSelectKategori= new String[listData.length][4];
-        System.out.println(Arrays.deepToString(listData));
-        
-        for (int i = 0; i < listData.length; i++) {
-            listSelectKategori[i][0] = listData[i][0];
-            listSelectKategori[i][1] = listData[i][1];
-            listSelectKategori[i][2] = listData[i][2];
-            listSelectKategori[i][3] = listData[i][3];
-            listSelectKategori[i][4] = listData[i][3] * listData[i][2];
-            
-        }
+        String globalId = tableKategori.getValueAt(baris, 0).toString();
+        String inputName = tableKategori.getValueAt(baris, 1).toString();
+        String inputHarga = tableKategori.getValueAt(baris, 2).toString();
+        Transaksi.createDetailPenjualan(inputName,inputHarga,"1",globalId);
+        getDataDetailPenjualan();
 //        new InfoEditDelete().setVisible(true);
         
     }//GEN-LAST:event_tableKategoriMouseClicked
@@ -213,15 +239,67 @@ public class TransaksiView extends javax.swing.JFrame {
 
     private void tableTransaksiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableTransaksiMouseClicked
         // TODO add your handling code here:
+        int baris = tableTransaksi.getSelectedRow();
+        String globalIdEdit = tableTransaksi.getValueAt(baris, 0).toString();
+        String inputNameEdit = tableTransaksi.getValueAt(baris, 1).toString();
+        String inputHargaEdit = tableTransaksi.getValueAt(baris, 2).toString();
+
+        Transaksi.editDetailPenjualan(inputNameEdit,inputHargaEdit,"1",globalIdEdit);
+        getDataDetailPenjualan();
     }//GEN-LAST:event_tableTransaksiMouseClicked
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void kembalianInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kembalianInputActionPerformed
         // TODO add your handling code here:
         int baris = tableKategori.getSelectedRow();
         globalId = tableKategori.getValueAt(baris, 0).toString();
         inputNameEdit = tableKategori.getValueAt(baris, 1).toString();
         inputHargaEdit = tableKategori.getValueAt(baris, 2).toString();
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_kembalianInputActionPerformed
+
+    private void kembalianInputKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_kembalianInputKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_kembalianInputKeyPressed
+
+    private void kembalianInputKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_kembalianInputKeyReleased
+        // TODO add your handling code here:
+        
+        int totalKembalian=Integer.parseInt(kembalianInput.getText()) - Integer.parseInt(jLabel7.getText());
+        if(totalKembalian>0){
+            kembalianLabel.setText(Integer.toString(totalKembalian));
+        }else{
+            kembalianLabel.setText("0");
+        }
+    }//GEN-LAST:event_kembalianInputKeyReleased
+
+    private void simpanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_simpanMouseClicked
+        // TODO add your handling code here:
+        String grandTotal = jLabel7.getText();
+        String kembalianLabelVar = kembalianLabel.getText();
+        String kembalianInputVar = kembalianInput.getText();
+  
+            int g = JOptionPane.showConfirmDialog(null, "Apakah Anda Ingin Menambah ?", "Tambah?", JOptionPane.YES_NO_OPTION);
+
+            if(g == 0){
+                String Info = Transaksi.createPenjualan(kembalianLabelVar,grandTotal, kembalianInputVar,"");
+                JOptionPane.showMessageDialog(null, Info);
+            }
+        
+//        inputName.setText("");
+        kembalianLabel.setText("0");
+        kembalianInput.setText("0");
+        getDataDetailPenjualan();
+    }//GEN-LAST:event_simpanMouseClicked
+
+    private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
+        // TODO add your handling code here:
+        new BarangView().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jLabel10MouseClicked
+
+    private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
+        // TODO add your handling code here:
+        new TransaksiList().setVisible(true);
+    }//GEN-LAST:event_jLabel8MouseClicked
     
     /**
      * @param args the command line arguments
@@ -332,19 +410,42 @@ public class TransaksiView extends javax.swing.JFrame {
             }
         });
     }
+    public static void getDataDetailPenjualan(){
+    tableTransaksi.setModel(new javax.swing.table.DefaultTableModel(
+            Transaksi.listDataDetailPenjualan("SELECT id_barang, name,harga,qty,id FROM detail_penjualan where id_transaksi is null"),
+            new String [] {
+                "Kode Barang", "Nama Barang","Harga Barang","Jumlah","Total"}
+        ){
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        });
+    String[][] listData = Transaksi.listDataDetailPenjualan(" SELECT id_barang, name,harga,qty,id FROM detail_penjualan where id_transaksi is null");
+         int dataGrand = 0;
+        System.out.println(Arrays.deepToString(listData));
+        
+        for (int i = 0; i < listData.length; i++) {
+            dataGrand += Integer.parseInt(listData[i][4]);
+        }
+        
+        jLabel7.setText(Integer.toString(dataGrand));
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
+    private static javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField kembalianInput;
+    private javax.swing.JLabel kembalianLabel;
+    private javax.swing.JLabel simpan;
     public static javax.swing.JTable tableKategori;
     public static javax.swing.JTable tableTransaksi;
     // End of variables declaration//GEN-END:variables
