@@ -21,12 +21,12 @@ public class GlobalMysql {
     static final String PASS    =   "";
     
     public static void main(String[] args) {
-        String[] cars = new String[] {"Volvo", "BMW", "Ford", "Mazda"};
-        String getDataList("testing",cars);
+        String[] cars = new String[] {"id", "name"};
+        String[][] data = getDataList("SELECT id, name FROM kategori",cars);
+        System.out.println(Arrays.toString(data));
     }
-    public String getDataList(String query, String[] dataList){
+    public static String[][] getDataList(String query, String[] dataList){
         int i =0;
-        System.out.println(Arrays.toString(dataList));
         try {
             Connection conn =   DriverManager.getConnection(BD_URLGlobal,USER,PASS);
             Statement stmt  =   conn.createStatement(
@@ -38,16 +38,45 @@ public class GlobalMysql {
             ResultSetMetaData rsmd  =   (ResultSetMetaData) rs.getMetaData();
             int columns     =   rsmd.getColumnCount();
             String[][] resultData     =   new String[numberOfRows][columns];
-//            while (rs.netx()) {
-//                resultData[i][0].
-//                i++;
-//            }
+            while (rs.next()) {
+                for (int j = 0; j < dataList.length; j++) {
+                    resultData[i][j] = rs.getString(dataList[j]);
+                }
+                
+                i++;
+            }
+            return resultData;
             
-                    
         } catch (Exception e) {
-            
+            e.printStackTrace();
         }
-        return resultData;
-        
+        return null;        
+    }
+    public static String mysqlCUD (String query, String message) {
+        try {
+            String sql = query;
+            java.sql.Connection conn = DriverManager.getConnection(BD_URLGlobal, USER, PASS);
+            java.sql.PreparedStatement pst=conn.prepareStatement(sql);
+            pst.execute();
+           String result = message;
+            return result;
+        } catch (Exception e) {
+            System.out.println("devpos.models.Kategori.create():"+e.getMessage());
+            String result = e.getMessage();
+            return result;
+        }
+    }
+    public static String byteArrToString(byte[] b) {
+         
+        StringBuilder sb = new StringBuilder(b.length * 2);
+        for (int i = 0; i < b.length; i++) {
+            int j = b[i] & 0xff;
+            if (j < 16) {
+                sb.append('0');
+            }
+            sb.append(Integer.toHexString(j));
+        }
+        String res = sb.toString();
+        return res.toUpperCase();
     }
 }

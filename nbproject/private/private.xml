@@ -3,10 +3,24 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/Gunawan%20Bayu/Documents/NetBeansProjects/DevPos/src/devpos/Barang/EditData.java</file>
+            <file>file:/C:/Users/Gunawan%20Bayu/Documents/NetBeansProjects/DevPos/src/devpos/Transaksi/TransaksiList.java</file>
+            <file>file:/C:/Users/Gunawan%20Bayu/Documents/NetBeansProjects/DevPos/src/devpos/Kategori/EditData.java</file>
+            <file>file:/C:/Users/Gunawan%20Bayu/Documents/NetBeansProjects/DevPos/src/devpos/Dasboard/DasboardView.java</file>
+            <file>file:/C:/Users/Gunawan%20Bayu/Documents/NetBeansProjects/DevPos/src/devpos/User/UserView.java</file>
+            <file>file:/C:/Users/Gunawan%20Bayu/Documents/NetBeansProjects/DevPos/src/devpos/User/Login.java</file>
+            <file>file:/C:/Users/Gunawan%20Bayu/Documents/NetBeansProjects/DevPos/src/devpos/Barang/InfoEditDelete.java</file>
+            <file>file:/C:/Users/Gunawan%20Bayu/Documents/NetBeansProjects/DevPos/src/devpos/User/InfoEditDelete.java</file>
+            <file>file:/C:/Users/Gunawan%20Bayu/Documents/NetBeansProjects/DevPos/src/devpos/Kategori/KategoriView.java</file>
+            <file>file:/C:/Users/Gunawan%20Bayu/Documents/NetBeansProjects/DevPos/src/devpos/User/EditData.java</file>
             <file>file:/C:/Users/Gunawan%20Bayu/Documents/NetBeansProjects/DevPos/src/devpos/Barang/TambahData.java</file>
+            <file>file:/C:/Users/Gunawan%20Bayu/Documents/NetBeansProjects/DevPos/src/devpos/Barang/BarangView.java</file>
+            <file>file:/C:/Users/Gunawan%20Bayu/Documents/NetBeansProjects/DevPos/src/devpos/User/TambahData.java</file>
             <file>file:/C:/Users/Gunawan%20Bayu/Documents/NetBeansProjects/DevPos/src/devpos/models/Kategori.java</file>
             <file>file:/C:/Users/Gunawan%20Bayu/Documents/NetBeansProjects/DevPos/src/devpos/models/Barang.java</file>
             <file>file:/C:/Users/Gunawan%20Bayu/Documents/NetBeansProjects/DevPos/src/devpos/Transaksi/TransaksiView.java</file>
+            <file>file:/C:/Users/Gunawan%20Bayu/Documents/NetBeansProjects/DevPos/src/global/GlobalMysql.java</file>
+            <file>file:/C:/Users/Gunawan%20Bayu/Documents/NetBeansProjects/DevPos/src/devpos/models/User.java</file>
             <file>file:/C:/Users/Gunawan%20Bayu/Documents/NetBeansProjects/DevPos/src/devpos/models/Transaksi.java</file>
         </group>
     </open-files>

@@ -5,11 +5,14 @@
 package devpos.models;
 
 import com.mysql.cj.jdbc.result.ResultSetMetaData;
+import global.GlobalMysql;
+//import static global.GlobalMysql.getDataList;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.Arrays;
 
 
@@ -17,7 +20,7 @@ import java.util.Arrays;
  *
  * @author Gunawan Bayu
  */
-public class Transaksi {
+public class Transaksi extends GlobalMysql{
     private static  String DB_URL = "jdbc:mysql://localhost/pos_netbeans";
     private static  String USER = "root";
     private static  String PASS = "";
@@ -29,69 +32,54 @@ public class Transaksi {
     }
     public static String[][] listDataDetailPenjualan( String dataWhere)
     {
-        
-        int i=0;
-        int j=0;
-        int dataKepo=0;
         String QUERY = dataWhere;
-        try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-         Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-         ResultSet rs = stmt.executeQuery(QUERY);
-        ) {
-            rs.last();                              //move the cursor to the last row
-            int numberOfRows = rs.getRow();         //get the number of rows
-            rs.beforeFirst();                       
-            ResultSetMetaData rsmd = (ResultSetMetaData) rs.getMetaData();
-            int columnS = rsmd.getColumnCount();
-            String[][] returnData = new String[numberOfRows][6];
+        if(dataWhere == "SELECT * FROM penjualan" || dataWhere == "SELECT * FROM penjualan ORDER BY ID DESC LIMIT 1"){
+            String[] listData = new String[] {"id", "tanggal_penjualan","kembalian","total_harga","uang"};
+            String[][] returnGlobal = getDataList(QUERY,listData);
+            return returnGlobal;
+        }else{
+            String[] listData = new String[] {"id_barang","name","harga","qty","id"};
+            String[][] returnGlobal = getDataList(QUERY,listData);
+            String[][]   listDataTransaksi = new String[returnGlobal.length][6];
+            System.out.println(returnGlobal.length);
+            int dataKepo=0;
+            for (int i = 0; i < returnGlobal.length; i++) {
+                
+                dataKepo = Integer.parseInt(returnGlobal[i][3]) * Integer.parseInt(returnGlobal[i][2]);
+                listDataTransaksi[i][0] = returnGlobal[i][0];
+                listDataTransaksi[i][1] = returnGlobal[i][1];
+                listDataTransaksi[i][2] = returnGlobal[i][2];
+                listDataTransaksi[i][3] = returnGlobal[i][3];
+                listDataTransaksi[i][4] = Integer.toString(dataKepo);
+                listDataTransaksi[i][5] = returnGlobal[i][4];
+                
+                
+            }
             
-         while(rs.next()){
-             
-              
-              if(dataWhere == "SELECT * FROM penjualan" || dataWhere == "SELECT * FROM penjualan ORDER BY ID DESC LIMIT 1"){
-                returnData[i][0] = rs.getString("id");
-                returnData[i][1] = rs.getString("tanggal_penjualan");
-                returnData[i][2] = rs.getString("kembalian");
-                returnData[i][3] = rs.getString("total_harga");
-                returnData[i][4] = rs.getString("uang");
-              }else{
-                dataKepo = Integer.parseInt(rs.getString("qty")) * Integer.parseInt(rs.getString("harga"));
-                returnData[i][0] = rs.getString("id_barang");
-                returnData[i][1] = rs.getString("name");
-                returnData[i][2] = rs.getString("harga");
-                returnData[i][3] = rs.getString("qty");
-                returnData[i][4] = Integer.toString(dataKepo);
-                returnData[i][5] = rs.getString("id");
-              }
-            
-            i++;
-            
+            return listDataTransaksi;
         }
-         return returnData;
-        } catch (SQLException e) {
-         e.printStackTrace();
-        }    
- 
-        // Return statement of the method.
-        
-        return null;
     }
     public static String createDetailPenjualan (String name, String harga,String qty,String idBarang) {
         try {
             String[][]  dataList = listDataDetailPenjualan("SELECT id_barang, name,harga,qty,id FROM detail_penjualan where id_transaksi is null and id_barang = "+idBarang+"");
             if("[]".equals(Arrays.deepToString(dataList))){
-                System.out.println(Arrays.deepToString(dataList));
+//                String sql = "INSERT INTO detail_penjualan (name,harga,qty,id_barang) VALUES ('"+name+"','"+harga+"','"+qty+"','"+idBarang+"');";
+//                java.sql.Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+//                java.sql.PreparedStatement pst=conn.prepareStatement(sql);
+//                pst.execute();
                 String sql = "INSERT INTO detail_penjualan (name,harga,qty,id_barang) VALUES ('"+name+"','"+harga+"','"+qty+"','"+idBarang+"');";
-                java.sql.Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-                java.sql.PreparedStatement pst=conn.prepareStatement(sql);
-                pst.execute();
+                String result = mysqlCUD(sql,"Penyimpanan Data Berhasil");
+//                return result;
             }else{
 //                System.out.println(Arrays.deepToString(dataList[0][3]));
                 int  dataSumQty = Integer.parseInt(dataList[0][3]) + 1;
                 String sql = "UPDATE detail_penjualan SET name='"+name+"',harga='"+harga+"',qty='"+(dataSumQty)+"' where id_barang = '"+idBarang+"' ;";
-                java.sql.Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-                java.sql.PreparedStatement pst=conn.prepareStatement(sql);
-                pst.execute();
+                String result = mysqlCUD(sql,"Penyimpanan Data Berhasil");
+//                return result;
+//                String sql = "UPDATE detail_penjualan SET name='"+name+"',harga='"+harga+"',qty='"+(dataSumQty)+"' where id_barang = '"+idBarang+"' ;";
+//                java.sql.Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+//                java.sql.PreparedStatement pst=conn.prepareStatement(sql);
+//                pst.execute();
                 
             }
             String result = "Penyimpanan Data Berhasil";
@@ -108,14 +96,10 @@ public class Transaksi {
             int  dataSumQty = Integer.parseInt(dataList[0][3]) - 1;
             if(Integer.parseInt(dataList[0][3]) <=1){
                 String sql = "DELETE FROM detail_penjualan WHERE id_barang='"+idBarang+"';";
-            java.sql.Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-            java.sql.PreparedStatement pst=conn.prepareStatement(sql);
-            pst.execute();
+            String result = mysqlCUD(sql,"Penyimpanan Data Berhasil");
             }else{
                 String sql = "UPDATE detail_penjualan SET name='"+name+"',harga='"+harga+"',qty='"+(dataSumQty)+"' where id_barang = '"+idBarang+"' ;";
-                java.sql.Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-                java.sql.PreparedStatement pst=conn.prepareStatement(sql);
-                pst.execute();
+                String result = mysqlCUD(sql,"Penyimpanan Data Berhasil");
             }
             
            String result = " Data Berhasil Di Ubah";
@@ -130,16 +114,11 @@ public class Transaksi {
         try {
             
                 String sql = "INSERT INTO penjualan (kembalian,total_harga,uang) VALUES ('"+name+"','"+harga+"','"+qty+"');";
-                java.sql.Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-                java.sql.PreparedStatement pst=conn.prepareStatement(sql);
-                pst.execute();
+                mysqlCUD(sql,"Penyimpanan Data Berhasil");
                 String[][]  dataList = listDataDetailPenjualan("SELECT * FROM penjualan ORDER BY ID DESC LIMIT 1");
-//                System.out.println(Arrays.deepToString(dataList[0][3]));
-         
+                
                 String sql2 = "UPDATE detail_penjualan SET id_transaksi='"+dataList[0][0]+"' where id_transaksi is null ;";
-                java.sql.Connection conn2 = DriverManager.getConnection(DB_URL, USER, PASS);
-                java.sql.PreparedStatement pst2=conn2.prepareStatement(sql2);
-                pst2.execute();
+                mysqlCUD(sql2,"Penyimpanan Data Berhasil");
 
             String result = "Penyimpanan Data Berhasil";
             return result;
@@ -147,6 +126,76 @@ public class Transaksi {
             String result = e.getMessage();
             return result;
         }
+    }
+    public static String[][] listDataPendapat(String statusMonth)
+    {
+        if(statusMonth == "Y"){
+            LocalDate today = LocalDate.now();
+            int month = today.getMonthValue();
+            String QUERY;
+            if(month<10){
+                 QUERY = "select MONTHNAME(tanggal_penjualan) as m,MONTH(tanggal_penjualan) as m2, sum(total_harga) as p\n" +
+            "from penjualan where MONTH(tanggal_penjualan) ='0"+month+"'  \n" +
+            "group by  MONTHNAME(tanggal_penjualan),MONTH(tanggal_penjualan)";
+                 System.out.println(QUERY);
+            }else{
+                 QUERY = "select MONTHNAME(tanggal_penjualan) as m,MONTH(tanggal_penjualan) as m2, sum(total_harga) as p\n" +
+                "from penjualan where MONTH(tanggal_penjualan) ='"+month+"'  \n" +
+                "group by  MONTHNAME(tanggal_penjualan),MONTH(tanggal_penjualan)";
+            }
+            System.out.println(month);
+            
+            String[] listData = new String[] {"m", "p"};
+            String[][] returnGlobal = getDataList(QUERY,listData);
+            return returnGlobal;
+        }else{
+            String QUERY = "select MONTHNAME(tanggal_penjualan) as m, sum(total_harga) as p\n" +
+            "from penjualan\n" +
+            "group by  MONTHNAME(tanggal_penjualan)";
+            String[] listData = new String[] {"m", "p"};
+            String[][] returnGlobal = getDataList(QUERY,listData);
+            return returnGlobal;
+        }
+        
+    }
+    public static String[][] listDataPendapatProduct(String statusMonth)
+    {
+        String QUERY;
+        if(statusMonth == "Y"){
+            LocalDate today = LocalDate.now();
+            int month = today.getMonthValue();
+            if(month<10){
+                QUERY = "select MONTHNAME(tanggal) as m,MONTH(tanggal) as m2, sum(qty) as p, sum(harga) as p2,`name`\n" +
+                "from detail_penjualan where id_transaksi is not null and MONTH(tanggal)= '0"+month+"'\n" +
+                "group by  MONTHNAME(tanggal),name,MONTH(tanggal)";
+            }else{
+                QUERY = "select MONTHNAME(tanggal) as m,MONTH(tanggal) as m2, sum(qty) as p, sum(harga) as p2,`name`\n" +
+                "from detail_penjualan where id_transaksi is not null and MONTH(tanggal)= '"+month+"'\n" +
+                "group by  MONTHNAME(tanggal),name,MONTH(tanggal)";
+            }
+            
+        }else{
+            QUERY = "select MONTHNAME(tanggal) as m, sum(qty) as p, sum(harga) as p2,`name`\n" +
+            "from detail_penjualan where id_transaksi is not null\n" +
+            "group by  MONTHNAME(tanggal),name";
+        }
+        
+        String[] listData = new String[] {"name","m", "p","p2"};
+        String[][] returnGlobal = getDataList(QUERY,listData);
+        String[][]   listDataTransaksi = new String[returnGlobal.length][6];
+            System.out.println(returnGlobal.length);
+            int dataKepo=0;
+            for (int i = 0; i < returnGlobal.length; i++) {
+                
+                dataKepo = Integer.parseInt(returnGlobal[i][2]) * Integer.parseInt(returnGlobal[i][3]);
+                listDataTransaksi[i][0] = returnGlobal[i][0];
+                listDataTransaksi[i][1] = returnGlobal[i][1];
+                listDataTransaksi[i][2] = returnGlobal[i][2];
+                listDataTransaksi[i][3] = Integer.toString(dataKepo);
+                
+                
+            }
+        return listDataTransaksi;
     }
  
     

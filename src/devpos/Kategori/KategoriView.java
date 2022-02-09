@@ -6,7 +6,9 @@
 package devpos.Kategori;
 
 import devpos.Barang.BarangView;
+import devpos.Dasboard.DasboardView;
 import devpos.Transaksi.TransaksiView;
+import devpos.User.UserView;
 import devpos.models.Kategori;
 import java.awt.Color;
 import java.awt.Font;
@@ -49,6 +51,8 @@ public class KategoriView extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         menuBarang = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableKategori = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
@@ -64,7 +68,7 @@ public class KategoriView extends javax.swing.JFrame {
                 jLabel5MouseClicked(evt);
             }
         });
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 194, 290, 30));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 290, 40));
 
         jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -78,11 +82,25 @@ public class KategoriView extends javax.swing.JFrame {
                 menuBarangMouseClicked(evt);
             }
         });
-        getContentPane().add(menuBarang, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 290, 30));
+        getContentPane().add(menuBarang, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 290, 40));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         jLabel3.setText("Kategori");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 180, -1, -1));
+
+        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel6MouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 290, 40));
+
+        jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel7MouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 290, 40));
 
         tableKategori.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -119,7 +137,7 @@ public class KategoriView extends javax.swing.JFrame {
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 190, -1, -1));
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/devpos/Dashboard.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/devpos/Kategori/ImageAssets/Dashboard2.png"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-80, -80, 1620, 1050));
 
         setSize(new java.awt.Dimension(1453, 938));
@@ -159,6 +177,18 @@ public class KategoriView extends javax.swing.JFrame {
         new TransaksiView().setVisible(true);
         dispose();
     }//GEN-LAST:event_jLabel5MouseClicked
+
+    private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
+        // TODO add your handling code here:
+        new UserView().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jLabel6MouseClicked
+
+    private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
+        // TODO add your handling code here:
+        new DasboardView().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jLabel7MouseClicked
     
     /**
      * @param args the command line arguments
@@ -226,6 +256,7 @@ public class KategoriView extends javax.swing.JFrame {
     public void disposeView(){
     setDefaultCloseOperation(KategoriView.DISPOSE_ON_CLOSE);
     }
+    // table View
     public static void getData(){
     tableKategori.setModel(new javax.swing.table.DefaultTableModel(
             Kategori.listData(),
@@ -243,6 +274,8 @@ public class KategoriView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel menuBarang;
     public static javax.swing.JTable tableKategori;

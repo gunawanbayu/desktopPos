@@ -6,10 +6,13 @@
 package devpos.Transaksi;
 
 import devpos.Barang.*;
+import devpos.Dasboard.DasboardView;
 import devpos.Kategori.*;
+import devpos.User.UserView;
 import devpos.models.Barang;
 import devpos.models.Kategori;
 import devpos.models.Transaksi;
+import devpos.models.User;
 import java.awt.Color;
 import java.awt.Font;
 import java.util.Arrays;
@@ -39,8 +42,19 @@ public class TransaksiView extends javax.swing.JFrame {
         tableKategori.getTableHeader().setForeground(new Color(255,255,255));
         tableKategori.setRowHeight(25);
         getData();
+        String[][] getUser = User.Session();
         getDataDetailPenjualan();
-       
+        int role = Integer.parseInt(getUser[0][2]);
+        if(role == 1){
+            jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+            jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/devpos/Kategori/ImageAssets/transaksi.png"))); // NOI18N
+            getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-80, -80, 1620, 1050));
+        }else{
+            jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+            jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/devpos/Kategori/ImageAssets/karyawanView.png"))); // NOI18N
+            getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-80, -80, 1620, 1050));
+        }
+        
     }
 
     /**
@@ -53,6 +67,8 @@ public class TransaksiView extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel10 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         simpan = new javax.swing.JLabel();
         kembalianInput = new javax.swing.JTextField();
@@ -80,7 +96,21 @@ public class TransaksiView extends javax.swing.JFrame {
                 jLabel10MouseClicked(evt);
             }
         });
-        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 290, 30));
+        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 290, 30));
+
+        jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel12MouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 290, 30));
+
+        jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel11MouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 290, 30));
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/devpos/Kategori/ImageAssets/lihatTransaksi.png"))); // NOI18N
         jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -146,7 +176,7 @@ public class TransaksiView extends javax.swing.JFrame {
                 jLabel5MouseClicked(evt);
             }
         });
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 290, 30));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 290, 30));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         jLabel3.setText("Pilih Barang");
@@ -232,9 +262,13 @@ public class TransaksiView extends javax.swing.JFrame {
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
         // TODO add your handling code here:
+        String[][] getUser = User.Session();
+        int role = Integer.parseInt(getUser[0][2]);
+        if(role == 1){
+            new KategoriView().setVisible(true);
+            dispose();
+        }
         
-        new KategoriView().setVisible(true);
-        dispose();
     }//GEN-LAST:event_jLabel5MouseClicked
 
     private void tableTransaksiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableTransaksiMouseClicked
@@ -300,6 +334,18 @@ public class TransaksiView extends javax.swing.JFrame {
         // TODO add your handling code here:
         new TransaksiList().setVisible(true);
     }//GEN-LAST:event_jLabel8MouseClicked
+
+    private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
+        // TODO add your handling code here:
+        new UserView().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jLabel11MouseClicked
+
+    private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
+        // TODO add your handling code here:
+        new DasboardView().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jLabel12MouseClicked
     
     /**
      * @param args the command line arguments
@@ -433,6 +479,8 @@ public class TransaksiView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
