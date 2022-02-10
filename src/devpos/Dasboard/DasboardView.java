@@ -118,7 +118,7 @@ public class DasboardView extends javax.swing.JFrame {
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 290, 30));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
-        jLabel3.setText("Tabel Pendapat");
+        jLabel3.setText("Tabel Top Produk");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 410, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N

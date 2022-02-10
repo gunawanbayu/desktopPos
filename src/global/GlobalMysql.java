@@ -25,10 +25,20 @@ public class GlobalMysql {
         String[][] data = getDataList("SELECT id, name FROM kategori",cars);
         System.out.println(Arrays.toString(data));
     }
+    public static Connection getConnection() throws SQLException {
+        try {
+            Connection  connection = DriverManager.getConnection(BD_URLGlobal,USER,PASS);
+        
+            return connection;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
     public static String[][] getDataList(String query, String[] dataList){
         int i =0;
         try {
-            Connection conn =   DriverManager.getConnection(BD_URLGlobal,USER,PASS);
+            Connection conn =   getConnection();
             Statement stmt  =   conn.createStatement(
             ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             ResultSet rs    =   stmt.executeQuery(query);
@@ -55,7 +65,7 @@ public class GlobalMysql {
     public static String mysqlCUD (String query, String message) {
         try {
             String sql = query;
-            java.sql.Connection conn = DriverManager.getConnection(BD_URLGlobal, USER, PASS);
+            java.sql.Connection conn = getConnection();
             java.sql.PreparedStatement pst=conn.prepareStatement(sql);
             pst.execute();
            String result = message;
